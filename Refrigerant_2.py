@@ -113,7 +113,7 @@ df = pd.DataFrame({'Result Output': ['Refrigerant Choice', 'Evaporator Tempertur
                     'Suction Line Refrigerant Density','Refrigerant Massflow Rate','Isentropic Efficiency','Estimate of Compressor Temperature Out',                    
                     'Condenser Power','Evaporator Power','Mechanical Efficiency','Compressor Work'],
                    'Value': [Refrigerant_Selection, T_Evap, Superheat, float("{:.2f}".format(P_Evap_barA)), Pressure_drop, T_Cond, Subcool,
-                    float("{:.2f}".format(P_Cond_barA)),Compressor_disp,Volumetric_eff,Compressor_speed,float("{:.2f}".format(D)),float("{:.2f}".format(mdot)),Isentropic_eff,float("{:.2f}".format(Compressor_Temperature_out_est-273.15)),
+                    float("{:.2f}".format(P_Cond_barA)),Compressor_disp,Volumetric_eff,Compressor_speed,float("{:.2f}".format(D)),float("{:.4f}".format(mdot)),Isentropic_eff,float("{:.2f}".format(Compressor_Temperature_out_est-273.15)),
                     float("{:.2f}".format(Q_Cond/1000)),float("{:.2f}".format(Q_Evap/1000)),Mechanical_eff,float("{:.2f}".format(W_Comp/1000))],
                    'Units': ['-', '°C', 'K', 'BarA', 'kPa', '°C', 'K','BarA','cc','%',
                    'RPM','kg/m\u00b3','kg/s','%','°C','kW','kW','%','kW']})
