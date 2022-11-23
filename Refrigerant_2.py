@@ -74,7 +74,7 @@ Q_Cond  =  mdot*(H_Comp_out-H_Cond_out)
 Q_Evap  =  mdot*(H_Evap_out-H_Cond_out)
 
 Mechanical_eff = st.slider(
-'Estimate Compressor Isentropic Efficiency',
+'Estimate Compressor Mechanical Efficiency',
      0, 100, 90)
 
 W_Comp  =  mdot*(H_Comp_out-H_Evap_out)*(Mechanical_eff/100)
