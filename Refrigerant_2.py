@@ -77,7 +77,7 @@ Mechanical_eff = st.slider(
 'Estimate Compressor Mechanical Efficiency',
      0, 100, 90)
 
-W_Comp  =  mdot*(H_Comp_out-H_Evap_out)*(Mechanical_eff/100)
+W_Comp  =  mdot*(H_Comp_out-H_Evap_out)/(Mechanical_eff/100)
 
 COP_heating = Q_Cond/W_Comp
 
