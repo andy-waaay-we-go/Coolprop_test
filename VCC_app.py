@@ -98,7 +98,7 @@ def plot_ph_diagram(refrigerant):
 
     # Create the p-h diagram
     plt.figure(figsize=(10, 6))
-    plt.contour(H, P, T, levels=20, cmap="coolwarm")
+    #plt.contour(H, P, T, levels=20, cmap="coolwarm")
     plt.plot(h_sat_liq, [PropsSI('P', 'T', T, 'Q', 0, refrigerant) / 1e5 for T in T_sat], 'k--', label="Saturation Liquid")
     plt.plot(h_sat_vap, [PropsSI('P', 'T', T, 'Q', 1, refrigerant) / 1e5 for T in T_sat], 'k-.', label="Saturation Vapor")
    
