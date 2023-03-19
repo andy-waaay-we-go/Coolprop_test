@@ -1,38 +1,30 @@
 import streamlit as st
 import matplotlib.pyplot as plt
+import numpy as np
 from CoolProp.CoolProp import PropsSI
+from CoolProp.CoolProp import PhaseSI
+from CoolProp.CoolProp import saturation_ancillary
 
-# Define the temperature and pressure ranges
-T_min = -50
-T_max = 200
-P_min = 0.1
-P_max = 10
+# Specify the range of pressures and temperatures to use
+T_values = np.linspace(-100, 300, 100)
+P_values = np.linspace(0.1, 7, 100) * 1e6
 
-# Define the refrigerant name
-fluid = 'R134a'
+# Generate the data for the phase boundary
+data = []
+for P in P_values:
+    Tsat = PropsSI('T', 'P', P, 'Q', 0, 'R134a')
+    hsatL = saturation_ancillary('H', ('P', P), ('Q', 0))
+    ssatL = saturation_ancillary('S', ('P', P), ('Q', 0))
+    hsatV = saturation_ancillary('H', ('P', P), ('Q', 1))
+    ssatV = saturation_ancillary('S', ('P', P), ('Q', 1))
+    data.append((Tsat, hsatL, ssatL, hsatV, ssatV))
 
-# Define the data to plot
-Ts_data = []
-Ps_data = []
-for T in range(T_min, T_max + 1, 5):
-    for P in range(int(P_min * 1000), int(P_max * 1000) + 1, 10):
-        T_actual = T + 273.15
-        P_actual = P / 1000.0
-        try:
-            h = PropsSI('H', 'T', T_actual, 'P', P_actual, fluid)
-            s = PropsSI('S', 'T', T_actual, 'P', P_actual, fluid)
-            Ts_data.append((T_actual, s))
-            Ps_data.append((P_actual, h / 1000.0))
-        except:
-            pass
-
-# Create the plot
+# Plot the phase boundary
 fig, ax = plt.subplots()
-ax.plot([x[0] for x in Ts_data], [x[1] for x in Ts_data], label='Saturated Vapor Line')
-ax.plot([x[0] for x in Ps_data], [x[1] for x in Ps_data], label='Saturated Liquid Line')
-ax.set_xlabel('Temperature (K)')
-ax.set_ylabel('Specific Entropy (kJ/(kg*K))')
-ax.set_ylim(min([x[1] for x in Ts_data]), max([x[1] for x in Ts_data]))
+ax.plot([d[1] for d in data], [d[0] for d in data], 'b-', label='Liquid')
+ax.plot([d[3] for d in data], [d[0] for d in data], 'r-', label='Vapor')
+ax.set_xlabel('Specific enthalpy (J/kg)')
+ax.set_ylabel('Pressure (Pa)')
 ax.legend()
 
 # Define the Streamlit app
