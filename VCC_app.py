@@ -96,10 +96,12 @@ def plot_ph_diagram(refrigerant):
             except ValueError:
                 T[i, j] = np.nan
 
-    # Create temperature levels with increments of 5
+     # Calculate and plot contour lines for every 5 degrees Celsius
     T_min_rounded = np.ceil(T_min / 5) * 5
     T_max_rounded = np.floor(T_max / 5) * 5
-    temperature_levels = np.arange(T_min_rounded, T_max_rounded + 5, 5)
+    for T_level in np.arange(T_min_rounded, T_max_rounded + 5, 5):
+        h_level = [PropsSI('H', 'T', T_level + 273.15, 'P', p * 1e5, refrigerant) / 1e3 for p in pressures]
+        plt.plot(h_level, pressures, label=f"{T_level:.0f} °C")
 
     # Create the p-h diagram
     plt.figure(figsize=(10, 6))
