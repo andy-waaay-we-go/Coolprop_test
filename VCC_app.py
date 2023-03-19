@@ -13,7 +13,7 @@ st.set_page_config(page_title="p-h Diagram", layout="wide")
 
 st.title("Pressure-Enthalpy Diagram")
 
-refrigerant = st.selectbox("Select refrigerant:", ["R134a", "R410A", "R32","Propane","R1234yf"])
+refrigerant = st.selectbox("Select refrigerant:", ["R134a","R1234yf", "R290", "R600a", "R410A", "R32", "R404a","R452A"])
 
 T_Evap = st.slider(
 'Select Evaporator Temperature in °C',
