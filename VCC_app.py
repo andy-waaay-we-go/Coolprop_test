@@ -92,9 +92,9 @@ def vapor_compression_cycle_points(refrigerant, evap_temp=T_Evap, cond_temp=T_Co
 
     cond_pressure = PropsSI('P', 'T', cond_temp + 273.15, 'Q', 0, refrigerant) / 1e5  # bar
 
-    h1 = H_Evap_out  # kJ/kg
-    h2 = H_Comp_out  # kJ/kg
-    h3 = H_Cond_out  # kJ/kg
+    h1 = H_Evap_out / 1e3  # kJ/kg
+    h2 = H_Comp_out / 1e3  # kJ/kg
+    h3 = H_Cond_out / 1e3  # kJ/kg
     h4 = h3 # kJ/kg
 
     return (h1, evap_pressure), (h2, cond_pressure), (h3, cond_pressure), (h4, evap_pressure)
