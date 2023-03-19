@@ -3,6 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import modelicares as mr
 
+import sys
+sys.path.append('/path/to/matplotlib')
+
 # Load the ModelicaRes library
 mr.load_library("Modelica.Media.Water")
 
