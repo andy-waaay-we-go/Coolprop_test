@@ -21,6 +21,5 @@ import matplotlib.pyplot as plt
 plt.close(cycle.figure)
 pp.draw_process(sc)
 
-
 # Display the plot in Streamlit
-st.pyplot(plot.figure)
+st.pyplot(plt.figure)
