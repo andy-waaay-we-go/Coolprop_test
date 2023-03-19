@@ -66,7 +66,7 @@ def vapor_compression_cycle_points(refrigerant, evap_temp=T_Evap, cond_temp=T_Co
     h1 = PropsSI('H', 'T', evap_temp + 273.15 + superheat, 'P', evap_pressure * 1e5, refrigerant) / 1e3  # kJ/kg
     h2 = PropsSI('H', 'P', cond_pressure * 1e5, 'S', PropsSI('S', 'H', h1 * 1e3, 'P', evap_pressure * 1e5, refrigerant), refrigerant) / 1e3  # kJ/kg
     h3 = PropsSI('H', 'T', cond_temp + 273.15 - subcooling, 'P', cond_pressure * 1e5, refrigerant) / 1e3  # kJ/kg
-    h4 = PropsSI('H', 'P', evap_pressure * 1e5, 'S', PropsSI('S', 'H', h3 * 1e3, 'P', cond_pressure * 1e5, refrigerant), refrigerant) / 1e3  # kJ/kg
+    h4 = h3 # kJ/kg
 
     return (h1, evap_pressure), (h2, cond_pressure), (h3, cond_pressure), (h4, evap_pressure)
 
