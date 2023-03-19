@@ -47,9 +47,7 @@ Volumetric_eff = st.slider(
 'Estimate Compressor Volumetric Efficiency',
      0, 100, 80)
 
-Compressor_speed = st.slider(
-'Enter Compressor Speed in RPM',
-     1000, 7000, 2500)
+Compressor_speed = st.number_input('Enter Compressor Speed in RPM',value=3000)
 
 Isentropic_eff = st.slider(
 'Estimate Compressor Isentropic Efficiency',
