@@ -70,7 +70,7 @@ Compressor_Entropy_in = PropsSI('S','T',T_Evap_K + Superheat,'P',P_Evap-Pdrop_kP
 
 Compressor_Entropy_out = Compressor_Entropy_in/(Isentropic_eff/100)
 
-Compressor_Temperature_out_est = PropsSI('T','P',P_Cond,'S',Compressor_Entropy_out*1000,refrigernt)
+Compressor_Temperature_out_est = PropsSI('T','P',P_Cond,'S',Compressor_Entropy_out*1000,refrigerant)
 
 H_Comp_out = PropsSI('H','T',Compressor_Temperature_out_est,'P',P_Cond,refrigerant)
 
