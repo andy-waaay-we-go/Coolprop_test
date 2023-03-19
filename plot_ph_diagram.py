@@ -59,6 +59,7 @@ def plot_ph_diagram(refrigerant):
     plt.xlabel('Enthalpy [kJ/kg]')
     plt.ylabel('Pressure [bar]')
     plt.title(f'Pressure-Enthalpy Diagram for {refrigerant}')
+    plt.legend()
     plt.grid()
 
     # Return the figure instead of showing it
