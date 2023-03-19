@@ -9,7 +9,7 @@ import CoolProp.Plots as CPP
 from CoolProp.Plots import PropertyPlot
 
 # Create a PropertyPlot instance for R290 refrigerant
-plot = PropertyPlot('R290', 'ph', tp_limits='ACHP')
+plot = PropertyPlot('R290', 'ph', unit_system='EUR', tp_limits='ACHP')
 
 # Calculate and add isobars and isotherms to the plot
 plot.calc_isolines()
