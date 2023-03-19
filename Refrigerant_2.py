@@ -81,31 +81,6 @@ W_Comp  =  mdot*(H_Comp_out-H_Evap_out)/(Mechanical_eff/100)
 
 COP_heating = Q_Cond/W_Comp
 
-#st.write('Refrigerant Choice:', Refrigerant_Selection)
-#st.write('Evaporator Temperture in °C:', T_Evap)
-#st.write('Superheat in K:', Superheat)
-#st.write('Evaporator Pressure in BarA:', P_Evap_barA)
-#st.write('Suction Line Pressure Drop in kPa:', Pressure_drop)
-#st.write('Condenser Temperature in °C:', T_Cond)
-#st.write('Subcool in K:', Subcool)
-#st.write('Condenser Pressure in BarA:', P_Cond_barA)
-#st.write('Compressor Displacement in cc', Compressor_disp)
-#st.write('Volumetric Efficiency%:', Volumetric_eff)
-#st.write('Compressor Speed:', Compressor_speed)
-#st.write('Suction Line Refrigerant Density in kg/m3:', D)
-#st.write('Refrigerant Massflow Rate:', mdot)
-#st.write('Isentropic Efficiency%:', Isentropic_eff)
-#st.write('Compressor_Entropy_in J K−1', Compressor_Entropy_in)
-#st.write('Compressor_Entropy_out J K−1', Compressor_Entropy_out)
-#st.write('Estimate of Compressor Temperature Out', Compressor_Temperature_out_est-273.15)
-#st.write('Enthalpy Refrigerant Compressor Discharge kJ/kg:', H_Comp_out/1000)
-#st.write('Enthalpy Refrigerant Condenser outlet kJ/kg:', H_Cond_out/1000)
-#st.write('Enthalpy Refrigerant Evaporator outlet in kJ/kg:', H_Evap_out/1000)
-#st.write('Condenser Power in kW:', Q_Cond/1000)
-#st.write('Evaporator Power in kW:', Q_Evap/1000)
-#st.write('Mechanical Efficiency%:', Mechanical_eff)
-#st.write('Compressor Work in kW:', W_Comp/1000)
-
 # Update default settings to show 2 decimal place
 pd.options.display.float_format = '{:.2f}'.format
 
