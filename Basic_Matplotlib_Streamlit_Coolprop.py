@@ -19,8 +19,8 @@ for T in range(T_min, T_max + 1, 5):
         T_actual = T + 273.15
         P_actual = P / 1000.0
         try:
-            h = cp.PropsSI('H', 'T', T_actual, 'P', P_actual, fluid)
-            s = cp.PropsSI('S', 'T', T_actual, 'P', P_actual, fluid)
+            h = PropsSI('H', 'T', T_actual, 'P', P_actual, fluid)
+            s = PropsSI('S', 'T', T_actual, 'P', P_actual, fluid)
             Ts_data.append((T_actual, s))
             Ps_data.append((P_actual, h / 1000.0))
         except:
