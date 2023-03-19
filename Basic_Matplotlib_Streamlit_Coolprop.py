@@ -8,8 +8,8 @@ import CoolProp.Plots as CPP
 
 from CoolProp.Plots import PropertyPlot
 
-# Create a PropertyPlot instance for R290 refrigerant
-plot = PropertyPlot('R290', 'ph', unit_system='EUR', tp_limits='ACHP')
+# Create a PropertyPlot instance for R134a refrigerant
+plot = PropertyPlot('HEOS::R134a', 'PH', unit_system='EUR', tp_limits='ACHP')
 
 # Calculate and add isobars and isotherms to the plot
 plot.calc_isolines()
@@ -17,7 +17,7 @@ plot.calc_isolines()
 # Set the axis labels and title for the plot
 plot.xlabel('Specific enthalpy (kJ/kg)')
 plot.ylabel('Pressure (bar)')
-plot.title('R290 Refrigerant PH Diagram')
+plot.title('R134a Refrigerant PH Diagram')
 
 # Display the plot on terminal
 plot.show()
