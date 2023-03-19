@@ -19,8 +19,8 @@ plot.xlabel('Specific enthalpy (kJ/kg)')
 plot.ylabel('Pressure (bar)')
 plot.title('R290 Refrigerant PH Diagram')
 
-# Display the plot on terminal
-plot.show()
+# Display the plot on terminal GUI
+# plot.show()
 
 # Display the plot in Streamlit
 st.pyplot(plot.figure)
