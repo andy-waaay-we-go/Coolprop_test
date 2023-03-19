@@ -9,6 +9,12 @@ from CoolProp.CoolProp import PropsSI
 
 import streamlit as st
 
+if st.button("Refresh"):
+    st.write("Button clicked. Refreshing content...")
+
+else:
+    st.write("Click the button to refresh the content.")
+
 st.set_page_config(page_title="p-h Diagram", layout="wide")
 
 st.title("Pressure-Enthalpy Diagram")
