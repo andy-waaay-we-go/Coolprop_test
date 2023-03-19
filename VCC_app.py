@@ -28,8 +28,8 @@ P_Evap = PropsSI('P','T',T_Evap_K,'Q',1, refrigerant)
 P_Evap_barA = P_Evap/100000
 
 Pressure_drop = st.slider(
-'Estimate Suction Line Pressure Drop in kPa',
-     250, 1000, 500)
+'Estimate Suction Line Pressure Drop in Bar',
+     0, 0.25, 0)
 Pdrop_kPa = Pressure_drop*100
 
 T_Cond = st.slider(
