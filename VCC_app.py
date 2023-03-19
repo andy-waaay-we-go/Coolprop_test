@@ -61,9 +61,21 @@ def vapor_compression_cycle_points(refrigerant, evap_temp=T_Evap, cond_temp=T_Co
     evap_pressure = PropsSI('P', 'T', evap_temp + 273.15, 'Q', 0, refrigerant) / 1e5  # bar
     cond_pressure = PropsSI('P', 'T', cond_temp + 273.15, 'Q', 0, refrigerant) / 1e5  # bar
 
-    h1 = PropsSI('H', 'T', evap_temp + 273.15 + superheat, 'P', evap_pressure * 1e5, refrigerant) / 1e3  # kJ/kg
-    h2 = PropsSI('H', 'P', cond_pressure * 1e5, 'S', PropsSI('S', 'H', h1 * 1e3, 'P', evap_pressure * 1e5, refrigerant), refrigerant) / 1e3  # kJ/kg
-    h3 = PropsSI('H', 'T', cond_temp + 273.15 - subcooling, 'P', cond_pressure * 1e5, refrigerant) / 1e3  # kJ/kg
+    Compressor_Entropy_in = PropsSI('S','T',T_Evap_K + Superheat,'P',P_Evap-Pdrop_kPa,refrigerant)/1000
+
+    Compressor_Entropy_out = Compressor_Entropy_in/(Isentropic_eff/100)
+
+    Compressor_Temperature_out_est = PropsSI('T','P',P_Cond,'S',Compressor_Entropy_out*1000,refrigerant)
+
+    H_Comp_out = PropsSI('H','T',Compressor_Temperature_out_est,'P',P_Cond,refrigerant)
+
+    H_Cond_out = PropsSI('H','T',T_Cond_K - Subcool,'P',P_Cond,refrigerant)
+
+    H_Evap_out = PropsSI('H','T',T_Evap_K + Superheat,'P',P_Evap,refrigerant)
+
+    h1 = H_Evap_out  # kJ/kg
+    h2 = H_Comp_out  # kJ/kg
+    h3 = H_Cond_out  # kJ/kg
     h4 = h3 # kJ/kg
 
     return (h1, evap_pressure), (h2, cond_pressure), (h3, cond_pressure), (h4, evap_pressure)
@@ -128,18 +140,6 @@ P_Cond_barA = P_Cond/100000
 D = PropsSI('D','T',T_Evap_K + Superheat,'P',P_Evap-Pdrop_kPa,refrigerant)
 
 mdot = (Compressor_speed*D*Volumetric_eff/100*(Compressor_disp/1000000))/60
-
-Compressor_Entropy_in = PropsSI('S','T',T_Evap_K + Superheat,'P',P_Evap-Pdrop_kPa,refrigerant)/1000
-
-Compressor_Entropy_out = Compressor_Entropy_in/(Isentropic_eff/100)
-
-Compressor_Temperature_out_est = PropsSI('T','P',P_Cond,'S',Compressor_Entropy_out*1000,refrigerant)
-
-H_Comp_out = PropsSI('H','T',Compressor_Temperature_out_est,'P',P_Cond,refrigerant)
-
-H_Cond_out = PropsSI('H','T',T_Cond_K - Subcool,'P',P_Cond,refrigerant)
-
-H_Evap_out = PropsSI('H','T',T_Evap_K + Superheat,'P',P_Evap,refrigerant)
 
 Q_Cond  =  mdot*(H_Comp_out-H_Cond_out)
 
