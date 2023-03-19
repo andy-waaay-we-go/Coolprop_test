@@ -86,7 +86,7 @@ W_Comp  =  mdot*(H_Comp_out-H_Evap_out)/(Mechanical_eff/100)
 COP_heating = Q_Cond/W_Comp
 
 
-def vapor_compression_cycle_points(refrigerant, evap_temp=T_Evap, cond_temp=T_Cond, subcooling=Subcool, superheat=Superheat, H_Comp_out=H_Comp_out, H_Cond_out=H_Cond_out, H_Evap_out=H_Evap_out,Compressor_Temperature_out_est=Compressor):
+def vapor_compression_cycle_points(refrigerant, evap_temp=T_Evap, cond_temp=T_Cond, subcooling=Subcool, superheat=Superheat, H_Comp_out=H_Comp_out, H_Cond_out=H_Cond_out, H_Evap_out=H_Evap_out):
    
     evap_pressure = PropsSI('P', 'T', evap_temp + 273.15, 'Q', 0, refrigerant) / 1e5  # bar
 
