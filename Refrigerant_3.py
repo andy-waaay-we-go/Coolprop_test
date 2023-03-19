@@ -1,40 +1,26 @@
-#pip install streamlit CoolProp modelicares
-
-import inspect
-import textwrap
-import pandas as pd
-
 import streamlit as st
-
-from CoolProp.CoolProp import PropsSI
-
-import streamlit as st
-
+import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('agg')  # Set the backend for matplotlib to 'agg'
+import numpy as np
 import CoolProp.CoolProp as CP
-import modelicares as mr
+import CoolProp.Plots as CPP
 
-import sys
-sys.path.append('<path to modelicares>')
-
-# Your code goes here
-
-if __name__ == '__main__':
-    st.set_page_config(page_title='PH Diagram for R134a Refrigerant')
-    st.title('PH Diagram for R134a Refrigerant')
-    # Your Streamlit app code goes here
-
-# Define the temperature range (in K)
-T_min = CP.PropsSI('Tmin', 'R134a')
-T_max = CP.PropsSI('Tcrit', 'R134a') - 1
-
-# Define the pressure range (in Pa)
-P_min = CP.PropsSI('Pmin', 'R134a')
-P_max = CP.PropsSI('Pcrit', 'R134a') - 1000
-
-# Create the PH diagram
-ph_data = mr.plot_ph('R134a', P_min, P_max, T_min, T_max)
-
-# Display the PH diagram on Streamlit
-st.pyplot(ph_data.plot())
+import CoolProp
+from CoolProp.Plots import PropertyPlot
+from CoolProp.Plots import SimpleCompressionCycle
+pp = PropertyPlot('HEOS::R134a', 'PH', unit_system='EUR')
+pp.calc_isolines(CoolProp.iQ, num=11)
+cycle = SimpleCompressionCycle('HEOS::R134a', 'PH', unit_system='EUR')
+Te = 265
+Tc = 300
+cycle.simple_solve_dt(Te, Tc, 10, 15, 0.7, SI=True)
+cycle.steps = 50
+sc = cycle.get_state_changes()
+import matplotlib.pyplot as plt
+plt.close(cycle.figure)
+pp.draw_process(sc)
 
 
+# Display the plot in Streamlit
+st.pyplot(plot.figure)
