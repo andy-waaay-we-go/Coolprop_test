@@ -51,10 +51,10 @@ def plot_ph_diagram(refrigerant):
     points = vapor_compression_cycle_points(refrigerant)
 
     # Add the vapor compression cycle points to the plot
-    plt.plot([points[0][0], points[1][0]], [points[0][1], points[1][1]], 'go-', label="Compression")
-    plt.plot([points[1][0], points[2][0]], [points[1][1], points[2][1]], 'go-', label="Condensation")
-    plt.plot([points[2][0], points[3][0]], [points[2][1], points[3][1]], 'go-', label="Expansion")
-    plt.plot([points[3][0], points[0][0]], [points[3][1], points[0][1]], 'go-', label="Evaporation")
+    plt.plot([points[0][0], points[1][0]], [points[0][1], points[1][1]], 'go-') #label="Compression"
+    plt.plot([points[1][0], points[2][0]], [points[1][1], points[2][1]], 'go-')
+    plt.plot([points[2][0], points[3][0]], [points[2][1], points[3][1]], 'go-')
+    plt.plot([points[3][0], points[0][0]], [points[3][1], points[0][1]], 'go-')
 
     plt.xlabel('Enthalpy [kJ/kg]')
     plt.ylabel('Pressure [bar]')
