@@ -100,6 +100,9 @@ df = pd.DataFrame({'Result Output': ['Refrigerant Choice', 'Evaporator Tempertur
                    'Units': ['-', '°C', 'K', 'BarA', 'kPa', '°C', 'K','BarA','cc','%',
                    'RPM','kg/m\u00b3','kg/s','%','°C','kW','kW','%','kW','']}) 
 
+Results = df.astype(str)
+st.table(Results) 
+
 def vapor_compression_cycle_points(refrigerant, evap_temp=T_Evap, cond_temp=T_Cond, subcooling=Subcool, superheat=Superheat):
     evap_pressure = PropsSI('P', 'T', evap_temp + 273.15, 'Q', 0, refrigerant) / 1e5  # bar
     cond_pressure = PropsSI('P', 'T', cond_temp + 273.15, 'Q', 0, refrigerant) / 1e5  # bar
@@ -162,6 +165,3 @@ def plot_ph_diagram(refrigerant):
     plt.show()
     ph_fig = plot_ph_diagram(refrigerant)
     st.pyplot(ph_fig)
-
-    Results = df.astype(str)
-    st.table(Results) 
