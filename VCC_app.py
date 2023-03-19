@@ -163,5 +163,6 @@ def plot_ph_diagram(refrigerant):
     plt.title(f'Pressure-Enthalpy Diagram for {refrigerant}')
     plt.legend()
     plt.grid()
+    plt.show()
     ph_fig = plot_ph_diagram(refrigerant)
     st.pyplot(ph_fig)
