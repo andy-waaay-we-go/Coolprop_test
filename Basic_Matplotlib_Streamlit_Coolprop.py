@@ -1,5 +1,7 @@
 import streamlit as st
 import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('agg')  # Set the backend for matplotlib to 'agg'
 import numpy as np
 import CoolProp.CoolProp as CP
 import CoolProp.Plots as CPP
@@ -16,6 +18,9 @@ plot.calc_isolines()
 plot.xlabel('Specific enthalpy (kJ/kg)')
 plot.ylabel('Pressure (bar)')
 plot.title('R290 Refrigerant PH Diagram')
+
+# Display the plot on terminal
+plot.show()
 
 # Display the plot in Streamlit
 st.pyplot(plot.figure)
