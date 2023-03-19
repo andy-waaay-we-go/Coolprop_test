@@ -10,6 +10,9 @@ from CoolProp.CoolProp import PropsSI
 
 import streamlit as st
 
+import sys
+sys.path.append('<path to modelicares>')
+
 # Your code goes here
 
 if __name__ == '__main__':
