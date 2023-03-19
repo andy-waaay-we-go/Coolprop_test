@@ -22,7 +22,7 @@ pp.draw_process(sc)
 import matplotlib.pyplot as plt
 
 plt.close(cycle.figure)
-#pp.show()
+pp.show()
 
 import streamlit as st
 st.pyplot(pp.figure)
