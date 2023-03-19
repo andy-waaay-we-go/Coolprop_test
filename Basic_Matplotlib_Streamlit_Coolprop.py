@@ -9,7 +9,7 @@ import CoolProp.Plots as CPP
 from CoolProp.Plots import PropertyPlot
 
 # Create a PropertyPlot instance for R290 refrigerant
-plot = PropertyPlot('R290', 'ph')
+plot = PropertyPlot('R290', 'ph', tp_limits='ACHP')
 
 # Calculate and add isobars and isotherms to the plot
 plot.calc_isolines()
@@ -18,9 +18,6 @@ plot.calc_isolines()
 plot.xlabel('Specific enthalpy (kJ/kg)')
 plot.ylabel('Pressure (bar)')
 plot.title('R290 Refrigerant PH Diagram')
-
-# Set the x-axis limit to 600
-plot.axis_xlim([0, 600])
 
 # Display the plot on terminal
 plot.show()
