@@ -18,10 +18,11 @@ cycle.simple_solve(T0, p0, T2, p2, 0.7, SI=True)
 cycle.steps = 50
 sc = cycle.get_state_changes()
 pp.draw_process(sc)
+import matplotlib
 import matplotlib.pyplot as plt
-#matplotlib.use('agg')  # Set the backend for matplotlib to 'agg'
+matplotlib.use('agg')  # Set the backend for matplotlib to 'agg'
 plt.close(cycle.figure)
-pp.show()
+#pp.show()
 
 import streamlit as st
 st.pyplot(pp.figure)
