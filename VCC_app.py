@@ -96,9 +96,14 @@ def plot_ph_diagram(refrigerant):
             except ValueError:
                 T[i, j] = np.nan
 
+      # Create temperature levels with increments of 5
+    T_min_rounded = np.ceil(T_min / 5) * 5
+    T_max_rounded = np.floor(T_max / 5) * 5
+    temperature_levels = np.arange(T_min_rounded, T_max_rounded + 5, 5)
+
     # Create the p-h diagram
     plt.figure(figsize=(10, 6))
-    contour_plot = plt.contour(H, P, T, levels=20, cmap="coolwarm")
+    contour_plot = plt.contour(H, P, T, levels=temperature_levels, cmap="coolwarm")
     plt.clabel(contour_plot, inline=1, fontsize=8, fmt='%1.0f')  # Add labels to the contour lines
     plt.plot(h_sat_liq, [PropsSI('P', 'T', T, 'Q', 0, refrigerant) / 1e5 for T in T_sat], 'k--', label="Saturation Liquid")
     plt.plot(h_sat_vap, [PropsSI('P', 'T', T, 'Q', 1, refrigerant) / 1e5 for T in T_sat], 'k-.', label="Saturation Vapor")
