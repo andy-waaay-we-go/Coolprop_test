@@ -1,6 +1,6 @@
 import streamlit as st
 import matplotlib.pyplot as plt
-import coolprop as cp
+from CoolProp.CoolProp import PropsSI
 
 # Define the temperature and pressure ranges
 T_min = -50
