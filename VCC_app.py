@@ -96,7 +96,7 @@ def plot_ph_diagram(refrigerant):
             except ValueError:
                 T[i, j] = np.nan
 
-      # Create temperature levels with increments of 5
+    # Create temperature levels with increments of 5
     T_min_rounded = np.ceil(T_min / 5) * 5
     T_max_rounded = np.floor(T_max / 5) * 5
     temperature_levels = np.arange(T_min_rounded, T_max_rounded + 5, 5)
