@@ -10,6 +10,9 @@ from CoolProp.CoolProp import PropsSI
 
 import streamlit as st
 
+import CoolProp.CoolProp as CP
+import modelicares as mr
+
 import sys
 sys.path.append('<path to modelicares>')
 
@@ -19,9 +22,6 @@ if __name__ == '__main__':
     st.set_page_config(page_title='PH Diagram for R134a Refrigerant')
     st.title('PH Diagram for R134a Refrigerant')
     # Your Streamlit app code goes here
-
-import CoolProp.CoolProp as CP
-import modelicares as mr
 
 # Define the temperature range (in K)
 T_min = CP.PropsSI('Tmin', 'R134a')
