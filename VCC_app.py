@@ -29,7 +29,7 @@ P_Evap_barA = P_Evap/100000
 
 Pressure_drop = st.slider(
 'Estimate Suction Line Pressure Drop in Bar',
-     0, 0.25, 0)
+     0.0, 0.25, 0.0)
 Pdrop_kPa = Pressure_drop*100
 
 T_Cond = st.slider(
