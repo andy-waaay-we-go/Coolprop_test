@@ -72,8 +72,8 @@ def vapor_compression_cycle_points(refrigerant, evap_temp=T_Evap, cond_temp=T_Co
 
 def plot_ph_diagram(refrigerant):
      # Define pressure and enthalpy ranges
-    T_min = PropsSI('Tmin', refrigerant) + 100
-    T_max = PropsSI('Tcrit', refrigerant) - 25
+    T_min = T_Evap - 25
+    T_max = T_Cond +25
     p_min = PropsSI('P', 'T', T_min, 'Q', 0, refrigerant) / 1e5  # bar
     p_max = PropsSI('P', 'T', T_max, 'Q', 0, refrigerant) / 1e5  # bar
     h_min = PropsSI('H', 'T', T_min, 'Q', 0, refrigerant) / 1e3  # kJ/kg
