@@ -17,7 +17,7 @@ refrigerant = st.selectbox("Select refrigerant:", ["R134a","R1234yf", "R290", "R
 
 T_Evap = st.slider(
 'Select Evaporator Temperature in °C',
-     -20, 40, 5)
+     -20, 40, 0)
 T_Evap_K = T_Evap + 273.15
 
 Superheat = st.slider(
@@ -34,7 +34,7 @@ Pdrop_kPa = Pressure_drop*100
 
 T_Cond = st.slider(
 'Select Condenser Temperature in °C',
-     10, 70, 45)
+     10, 70, 50)
 T_Cond_K = T_Cond + 273.15
 
 Subcool = st.slider(
