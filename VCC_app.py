@@ -96,17 +96,14 @@ def plot_ph_diagram(refrigerant):
             except ValueError:
                 T[i, j] = np.nan
 
-     # Calculate and plot contour lines for every 5 degrees Celsius
-    T_min_rounded = np.ceil(T_min / 5) * 5
+    T_min_rounded = np.ceil(T_min / 10) * 10 if (np.ceil(T_min / 10) * 10) % 10 == 0 else np.ceil(T_min / 5) * 5
     T_max_rounded = np.floor(T_max / 5) * 5
-    for T_level in np.arange(T_min_rounded, T_max_rounded + 5, 5):
-        h_level = [PropsSI('H', 'T', T_level + 273.15, 'P', p * 1e5, refrigerant) / 1e3 for p in pressures]
-        plt.plot(h_level, pressures, label=f"{T_level:.0f} °C")
+    temperature_levels = np.arange(T_min_rounded, T_max_rounded + 5, 5)
 
     # Create the p-h diagram
     plt.figure(figsize=(10, 6))
-    #contour_plot = plt.contour(H, P, T, levels=temperature_levels, cmap="coolwarm")
-    #plt.clabel(contour_plot, inline=1, fontsize=8, fmt='%1.0f')  # Add labels to the contour lines
+    contour_plot = plt.contour(H, P, T, levels=temperature_levels, cmap="coolwarm")
+    plt.clabel(contour_plot, inline=1, fontsize=8, fmt='%1.0f')  # Add labels to the contour lines
     plt.plot(h_sat_liq, [PropsSI('P', 'T', T, 'Q', 0, refrigerant) / 1e5 for T in T_sat], 'k--', label="Saturation Liquid")
     plt.plot(h_sat_vap, [PropsSI('P', 'T', T, 'Q', 1, refrigerant) / 1e5 for T in T_sat], 'k-.', label="Saturation Vapor")
    
