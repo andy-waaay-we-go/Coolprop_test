@@ -19,6 +19,9 @@ plot.xlabel('Specific enthalpy (kJ/kg)')
 plot.ylabel('Pressure (bar)')
 plot.title('R290 Refrigerant PH Diagram')
 
+# Set the x-axis limit to 600
+plot.axis_xlim([0, 600])
+
 # Display the plot on terminal
 plot.show()
 
