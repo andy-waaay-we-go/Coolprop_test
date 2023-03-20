@@ -15,6 +15,16 @@ st.title("Refrigeration Cycle PH Diagram")
 
 refrigerant = st.selectbox("Select refrigerant:", ["R134a","R1234yf", "R290", "R600a", "R410A", "R32", "R404a"])
 
+T_Evap = st.slider(
+'Select Evaporator Temperature in °C',
+    -20, 40, 0)
+T_Evap_K = T_Evap + 273.15
+
+T_Cond = st.slider(
+'Select Condenser Temperature in °C',
+    10, 70, 50)
+T_Cond_K = T_Cond + 273.15
+
 def plot_ph_diagram(refrigerant):
     # Define pressure and enthalpy ranges
     T_min = T_Evap_K - 10
