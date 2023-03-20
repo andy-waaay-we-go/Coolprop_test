@@ -15,48 +15,6 @@ st.title("Pressure-Enthalpy Diagram")
 
 refrigerant = st.selectbox("Select refrigerant:", ["R134a","R1234yf", "R290", "R600a", "R410A", "R32", "R404a"])
 
-P_Cond = PropsSI('P','T',T_Cond_K,'Q',0,refrigerant)
-
-P_Cond_barA = P_Cond/100000
-
-Compressor_Entropy_in = PropsSI('S','T',T_Evap_K + Superheat,'P',P_Evap-Pdrop_kPa,refrigerant)/1000
-
-Compressor_Entropy_out = Compressor_Entropy_in/(Isentropic_eff/100)
-
-Compressor_Temperature_out_est = PropsSI('T','P',P_Cond,'S',Compressor_Entropy_out*1000,refrigerant)
-
-H_Comp_out = PropsSI('H','T',Compressor_Temperature_out_est,'P',P_Cond,refrigerant)
-
-H_Cond_out = PropsSI('H','T',T_Cond_K - Subcool,'P',P_Cond,refrigerant)
-
-H_Evap_out = PropsSI('H','T',T_Evap_K + Superheat,'P',P_Evap,refrigerant)
-
-D = PropsSI('D','T',T_Evap_K + Superheat,'P',P_Evap-Pdrop_kPa,refrigerant)
-
-mdot = (Compressor_speed*D*Volumetric_eff/100*(Compressor_disp/1000000))/60
-
-Q_Cond  =  mdot*(H_Comp_out-H_Cond_out)
-
-Q_Evap  =  mdot*(H_Evap_out-H_Cond_out)
-
-W_Comp  =  mdot*(H_Comp_out-H_Evap_out)/(Mechanical_eff/100)
-
-COP_heating = Q_Cond/W_Comp
-
-
-def vapor_compression_cycle_points(refrigerant, evap_temp=T_Evap, cond_temp=T_Cond, subcooling=Subcool, superheat=Superheat, H_Comp_out=H_Comp_out, H_Cond_out=H_Cond_out, H_Evap_out=H_Evap_out):
-   
-    evap_pressure = PropsSI('P', 'T', evap_temp + 273.15, 'Q', 0, refrigerant) / 1e5  # bar
-
-    cond_pressure = PropsSI('P', 'T', cond_temp + 273.15, 'Q', 0, refrigerant) / 1e5  # bar
-
-    h1 = H_Evap_out / 1e3  # kJ/kg
-    h2 = H_Comp_out / 1e3  # kJ/kg
-    h3 = H_Cond_out / 1e3  # kJ/kg
-    h4 = h3 # kJ/kg
-
-    return (h1, evap_pressure), (h2, cond_pressure), (h3, cond_pressure), (h4, evap_pressure)
-
 T_Evap = st.slider(
 'Select Evaporator Temperature in °C',
     -20, 40, 0)
@@ -98,6 +56,48 @@ Isentropic_eff = st.slider(
 Mechanical_eff = st.slider(
 'Estimate Compressor Mechanical Efficiency',
     0, 100, 90)
+
+P_Cond = PropsSI('P','T',T_Cond_K,'Q',0,refrigerant)
+
+P_Cond_barA = P_Cond/100000
+
+Compressor_Entropy_in = PropsSI('S','T',T_Evap_K + Superheat,'P',P_Evap-Pdrop_kPa,refrigerant)/1000
+
+Compressor_Entropy_out = Compressor_Entropy_in/(Isentropic_eff/100)
+
+Compressor_Temperature_out_est = PropsSI('T','P',P_Cond,'S',Compressor_Entropy_out*1000,refrigerant)
+
+H_Comp_out = PropsSI('H','T',Compressor_Temperature_out_est,'P',P_Cond,refrigerant)
+
+H_Cond_out = PropsSI('H','T',T_Cond_K - Subcool,'P',P_Cond,refrigerant)
+
+H_Evap_out = PropsSI('H','T',T_Evap_K + Superheat,'P',P_Evap,refrigerant)
+
+D = PropsSI('D','T',T_Evap_K + Superheat,'P',P_Evap-Pdrop_kPa,refrigerant)
+
+mdot = (Compressor_speed*D*Volumetric_eff/100*(Compressor_disp/1000000))/60
+
+Q_Cond  =  mdot*(H_Comp_out-H_Cond_out)
+
+Q_Evap  =  mdot*(H_Evap_out-H_Cond_out)
+
+W_Comp  =  mdot*(H_Comp_out-H_Evap_out)/(Mechanical_eff/100)
+
+COP_heating = Q_Cond/W_Comp
+
+
+def vapor_compression_cycle_points(refrigerant, evap_temp=T_Evap, cond_temp=T_Cond, subcooling=Subcool, superheat=Superheat, H_Comp_out=H_Comp_out, H_Cond_out=H_Cond_out, H_Evap_out=H_Evap_out):
+   
+    evap_pressure = PropsSI('P', 'T', evap_temp + 273.15, 'Q', 0, refrigerant) / 1e5  # bar
+
+    cond_pressure = PropsSI('P', 'T', cond_temp + 273.15, 'Q', 0, refrigerant) / 1e5  # bar
+
+    h1 = H_Evap_out / 1e3  # kJ/kg
+    h2 = H_Comp_out / 1e3  # kJ/kg
+    h3 = H_Cond_out / 1e3  # kJ/kg
+    h4 = h3 # kJ/kg
+
+    return (h1, evap_pressure), (h2, cond_pressure), (h3, cond_pressure), (h4, evap_pressure)
 
 # Update default settings to show 2 decimal place
 pd.options.display.float_format = '{:.2f}'.format
