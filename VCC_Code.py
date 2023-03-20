@@ -11,9 +11,63 @@ import streamlit as st
 
 st.set_page_config(page_title="p-h Diagram", layout="wide")
 
-st.title("Pressure-Enthalpy Diagram")
+st.title("Refrigeration Cycle PH Diagram")
 
 refrigerant = st.selectbox("Select refrigerant:", ["R134a","R1234yf", "R290", "R600a", "R410A", "R32", "R404a"])
+
+def plot_ph_diagram(refrigerant):
+    # Define pressure and enthalpy ranges
+    T_min = T_Evap_K - 10
+    T_max = T_Cond_K + 5
+    p_min = PropsSI('P', 'T', T_min, 'Q', 0, refrigerant) / 1e5  # bar
+    p_max = PropsSI('P', 'T', T_max, 'Q', 0, refrigerant) / 1e5  # bar
+    h_min = PropsSI('H', 'T', T_min, 'Q', 0, refrigerant) / 1e3  # kJ/kg
+    h_max = PropsSI('H', 'T', T_max, 'Q', 1, refrigerant) / 1e3  # kJ/kg
+
+    pressures = np.linspace(p_min, p_max, 200)
+    enthalpies = np.linspace(h_min, h_max, 200)
+
+    H, P = np.meshgrid(enthalpies, pressures)
+
+    # Calculate saturation lines
+    T_sat = np.linspace(T_min, T_max, 100)
+    h_sat_liq = [PropsSI('H', 'T', T, 'Q', 0, refrigerant) / 1e3 for T in T_sat]
+    h_sat_vap = [PropsSI('H', 'T', T, 'Q', 1, refrigerant) / 1e3 for T in T_sat]
+
+    # Calculate temperature grid
+    T = np.zeros_like(H)
+    for i, p in enumerate(pressures):
+        for j, h in enumerate(enthalpies):
+            try:
+                T[i, j] = PropsSI('T', 'P', p * 1e5, 'H', h * 1e3, refrigerant) - 273.15  # °C
+            except ValueError:
+                T[i, j] = np.nan
+
+    # Create the p-h diagram
+    plt.figure(figsize=(10, 6))
+    contour_plot = plt.contour(H, P, T, levels=20, cmap="coolwarm")
+    plt.clabel(contour_plot, inline=1, fontsize=8, fmt='%1.0f')  # Add labels to the contour lines
+    plt.plot(h_sat_liq, [PropsSI('P', 'T', T, 'Q', 0, refrigerant) / 1e5 for T in T_sat], 'k--', label="Saturation Liquid")
+    plt.plot(h_sat_vap, [PropsSI('P', 'T', T, 'Q', 1, refrigerant) / 1e5 for T in T_sat], 'k-.', label="Saturation Vapor")
+
+    # Get the vapor compression cycle points
+    points = vapor_compression_cycle_points(refrigerant)
+
+    # Add the vapor compression cycle points to the plot
+    plt.plot([points[0][0], points[1][0]], [points[0][1], points[1][1]], 'go-') #label="Compression"
+    plt.plot([points[1][0], points[2][0]], [points[1][1], points[2][1]], 'go-')
+    plt.plot([points[2][0], points[3][0]], [points[2][1], points[3][1]], 'go-')
+    plt.plot([points[3][0], points[0][0]], [points[3][1], points[0][1]], 'go-')
+
+    plt.xlabel('Enthalpy [kJ/kg]')
+    plt.ylabel('Pressure [bar]')
+    plt.title(f'Pressure-Enthalpy Diagram for {refrigerant}')
+    plt.legend()
+    plt.grid()
+    return plt.gcf()
+
+ph_fig = plot_ph_diagram(refrigerant)
+st.pyplot(ph_fig)
 
 T_Evap = st.slider(
 'Select Evaporator Temperature in °C',
@@ -84,7 +138,6 @@ Q_Evap  =  mdot*(H_Evap_out-H_Cond_out)
 W_Comp  =  mdot*(H_Comp_out-H_Evap_out)/(Mechanical_eff/100)
 
 COP_heating = Q_Cond/W_Comp
-
 
 def vapor_compression_cycle_points(refrigerant, evap_temp=T_Evap, cond_temp=T_Cond, subcooling=Subcool, superheat=Superheat, H_Comp_out=H_Comp_out, H_Cond_out=H_Cond_out, H_Evap_out=H_Evap_out):
    
