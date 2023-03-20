@@ -150,9 +150,6 @@ def plot_ph_diagram(refrigerant):
     plt.grid()
     return plt.gcf()
 
-ph_fig = plot_ph_diagram(refrigerant)
-st.pyplot(ph_fig)
-
 # Update default settings to show 2 decimal place
 pd.options.display.float_format = '{:.2f}'.format
 
