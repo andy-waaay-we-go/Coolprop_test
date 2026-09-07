@@ -162,6 +162,8 @@ Where the current approach can be made more effective:
   one; that is inferred from the timestamps above, not documented behaviour.
 - A read-only diagnostic session (`session_01JXtYbAns1gmQE4pNqPHPyc`, titled "RC session recovery: Mac mini
   diagnostics") was created on the live bridge to list the local transcripts and map cloud IDs to local
-  files. See the bottom of this file for its outcome.
+  files. It stayed PENDING for 15 minutes and never connected: the Remote Control bridge does not pick
+  up sessions created through the API, only ones started from the app or the mini. It was archived.
+  `mac/recover-transcripts.sh` does the same mapping when run on the mini.
 - The scheduled Routine "AgentHub commit review" (`trig_0111BE5FEp8g1oGvBd4MCica`) recorded a FAILED run on
   2026-09-01. Separate problem, but it is another job that dies quietly.
