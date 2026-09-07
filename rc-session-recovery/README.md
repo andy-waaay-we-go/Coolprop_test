@@ -126,7 +126,37 @@ Habits that matter as much as the tooling:
   convention for. The cloud keeps only a one-line summary per session.
 - Push AgentHub `main` from the mini; 5 commits and uncommitted changes exist only on that machine.
 
-## 5. Unverified or outstanding
+## 5. Boot-up plan and upgrades
+
+The consolidated list of threads to bring back, the old-session mapping, and the paste-in first message
+for each are in `thread-plan.md`. `mac/recover-transcripts.sh` pulls the local transcripts into digests
+the new threads can read.
+
+Where the current approach can be made more effective:
+
+- **The always-on thing should be the server, not the threads.** One `claude remote-control` process
+  under launchd is what makes the mini reachable from the phone. Sessions on it are cheap to leave idle
+  and resume by name, so keep seven named threads rather than twenty, and let the server resume them
+  instead of any launcher that mints a fresh batch. That launcher is the direct cause of the 77
+  duplicate `remote-control-sdk` sessions.
+- **Scheduled work does not belong in hot threads.** Eolas daily am/pm, the AgentHub commit review
+  (whose last Routine run failed on 1 Sep), and the Japan reminders are batch jobs. Run them as
+  launchd jobs calling `claude -p` with `bin/daily-session.md`, or as cloud Routines. Threads are for
+  conversations you come back to.
+- **Memory should live in the repo, not in context.** Long threads compact and forget. AgentHub already
+  has `memory/`, `archive/session-handovers/` and `logs/`. Add a `Stop` hook on the mini that appends a
+  three-line handover to `Scratch/handovers/<session>.md` after each turn, and a `SessionStart` hook
+  that reads it back. Then any thread can be killed and re-created without losing state.
+- **Versions.** The mini reported CLI 2.1.258 to 2.1.260 across the batches and the desktop app 2.1.221;
+  current is 2.1.263. `claude --resume <cloud id>` across projects needs 2.1.223 or newer, so the mini is
+  fine, but keep `claude update` in the launchd wrapper's log so drift is visible.
+- **Cost and limits.** The Claude Profit Room thread alone used about 6.3M cached tokens and USD 16. Ten
+  hot threads all hitting the same 5-hour window is why things stall in the evening. Seven threads plus
+  batch jobs on Sonnet for the routine digests is the cheaper shape.
+- **Auth expiry is the one failure you cannot script away.** The wrapper now notifies you; the fix is
+  still `claude auth login` on the mini. Check it after any macOS update or password change.
+
+## 6. Unverified or outstanding
 
 - The docs describe bridge environments but do not state that each RC server start replaces the previous
   one; that is inferred from the timestamps above, not documented behaviour.
