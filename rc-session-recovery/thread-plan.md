@@ -24,8 +24,14 @@ restart. **Placeholder 1/2** and the two "Dispatch background conversation" sess
 2. Recover the transcripts: `bash rc-session-recovery/mac/recover-transcripts.sh`. It writes
    `~/Backups/claude-transcripts/recovered-<date>/` with the raw `.jsonl`, one Markdown digest per old
    session, and `INDEX.md` saying which were found and which were already purged.
-3. On the phone, open the `Andys-Mac-mini` environment and start seven new sessions, named exactly as
-   the table above. Paste this as the first message of each, with the thread number filled in:
+3. Create the seven threads **on the mini, not from the phone**. Evidence from 10 Sep: every start of a
+   Remote Control server registers a new bridge environment (`fdc8` on 7 Sep became `c443` on 10 Sep)
+   and sessions the phone created against the old one are the ones that show "environment deleted".
+   The named threads tagged `remote-control-sdk` have no environment binding at all and were
+   re-attached intact on 7 Sep and again on 10 Sep 06:06. So create the seven threads with whatever
+   launched those (the Claude desktop app's Remote Control list on the mini, or the SDK launcher), name
+   them as in the table, and only then open them from the phone. Paste this as the first message of
+   each, with the thread number filled in:
 
    ```
    You are thread <N>: "<name>" on Andy's Mac mini. Read

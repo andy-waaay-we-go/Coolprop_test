@@ -156,7 +156,25 @@ Where the current approach can be made more effective:
 - **Auth expiry is the one failure you cannot script away.** The wrapper now notifies you; the fix is
   still `claude auth login` on the mini. Check it after any macOS update or password change.
 
-## 6. Unverified or outstanding
+## 6. Update after running install.sh on 10 Sep
+
+- The launchd job started and immediately registered a **new** bridge environment
+  (`Andys-Mac-mini:AgentHub:c443`, 10:03:37Z) with one auto-named session on it; the 7 Sep environment
+  `fdc8` is gone. Bridge environments are per server process, so a `KeepAlive` restart will do this
+  every time. Sessions created from the phone against the bridge are the fragile kind.
+- The durable kind are the `remote-control-sdk` sessions (no environment binding, re-attached by ID on
+  every restart, still being used on 9 and 10 Sep). Create long-lived threads that way, from the mini,
+  and open them from the phone. See `thread-plan.md` step 3.
+- Consequence for the launchd job: keep it only if you want an extra CLI-hosted server; if the desktop
+  app is already hosting the named threads, unload it to stop environment churn:
+  `launchctl bootout gui/$(id -u)/com.andy.claude-remote-control`. The transcript backup job, the
+  retention setting and the pmset step stay useful either way. If `remoteControlAtStartup: true`
+  causes more environment churn from ad-hoc terminal sessions, set it back to false.
+- First run of `recover-transcripts.sh` matched 1 of 100 because local transcripts do not embed the
+  cloud session id. The script now digests every local transcript from the last 120 days regardless,
+  and matches to cloud sessions by id, title or start time. Re-run it after `git pull`.
+
+## 7. Unverified or outstanding
 
 - The docs describe bridge environments but do not state that each RC server start replaces the previous
   one; that is inferred from the timestamps above, not documented behaviour.
