@@ -28,9 +28,11 @@ restart. **Placeholder 1/2** and the two "Dispatch background conversation" sess
    Remote Control server registers a new bridge environment (`fdc8` on 7 Sep became `c443` on 10 Sep)
    and sessions the phone created against the old one are the ones that show "environment deleted".
    The named threads tagged `remote-control-sdk` have no environment binding at all and were
-   re-attached intact on 7 Sep and again on 10 Sep 06:06. So create the seven threads with whatever
-   launched those (the Claude desktop app's Remote Control list on the mini, or the SDK launcher), name
-   them as in the table, and only then open them from the phone. Paste this as the first message of
+   re-attached intact on 7 Sep and again on 10 Sep 06:06. Those come from the Claude desktop app on the
+   mini. Decision (10 Sep): create the seven threads in the desktop app, name them as in the table, flip
+   the Remote Control toggle on each, and only then open them from the phone. Do not use the terminal
+   or `start-threads.sh` route, and unload the launchd server job
+   (`launchctl bootout gui/$(id -u)/com.andy.claude-remote-control`). Paste this as the first message of
    each, with the thread number filled in:
 
    ```
